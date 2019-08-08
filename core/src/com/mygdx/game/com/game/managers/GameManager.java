@@ -15,31 +15,29 @@ public class GameManager {
  *
  */
 
-    public static Petal[] petals;  //массив для хранения лепестков
-    public static CentralElement[] centralElements; //массив для хранения центарльных эелементов
-    static Texture texture, texture2; //текстуры хранят лепестки и центральные элементы
-    public static Texture backgroundTexture; //текстура для заднего фона
-    public static Sprite backgroundSprite; //спрайт заднего фона
-    public static float SCREEN_HEIGHT; //высота экрана
-    public static float SCREEN_WIDTH; //ширина экрана
-    static float X_CENTER_SCREEN; //центр экрана по X (по ширине)
-    static float Y_CENTER_SCREEN; //центр экрана по Y (по высоте)
-    public static float widthForAllElements, scale; //ширина занимаемая всеми лепестками и центральными элементами в ряду, scale - коэффициент масштабирования
-    public static float positiveShiftXOrigin, negativeShiftXOrigin, yShiftOrigin; // величины нужные для установки относительных координат для вращения лепестков
-    public static float positiveShiftXOriginScale, negativeShiftXOriginScale, yShiftOriginScale; //те же величины что и на строчку выше но умноженные на scale
-    public static float baseWidth, baseShift; // ширина и высота центрального элемента, baseShift равен 1.5 baseWidth - для удобства
-    public static InitRotationManager initRotationManager; // класс занимается инициализацией вращения
+    public Petal[] petals;  //массив для хранения лепестков
+    public CentralElement[] centralElements; //массив для хранения центарльных эелементов
+    public Texture texture, texture2; //текстуры хранят лепестки и центральные элементы
+    public Texture backgroundTexture; //текстура для заднего фона
+    public Sprite backgroundSprite; //спрайт заднего фона
+    public float SCREEN_HEIGHT; //высота экрана
+    public float SCREEN_WIDTH; //ширина экрана
+    public float X_CENTER_SCREEN; //центр экрана по X (по ширине)
+    public float Y_CENTER_SCREEN; //центр экрана по Y (по высоте)
+    public float widthForAllElements, scale; //ширина занимаемая всеми лепестками и центральными элементами в ряду, scale - коэффициент масштабирования
+    public float positiveShiftXOrigin, negativeShiftXOrigin, yShiftOrigin; // величины нужные для установки относительных координат для вращения лепестков
+    public float positiveShiftXOriginScale, negativeShiftXOriginScale, yShiftOriginScale; //те же величины что и на строчку выше но умноженные на scale
+    public float baseWidth, baseShift; // ширина и высота центрального элемента, baseShift равен 1.5 baseWidth - для удобства
+    public InitRotationManager initRotationManager; // класс занимается инициализацией вращения
 
 
-    public static void initialize(){
+    public void initialize(){
         //метод который создает игровое поле
 
         SCREEN_HEIGHT = Gdx.graphics.getHeight();//получаем высоту экрана
         SCREEN_WIDTH = Gdx.graphics.getWidth();//получаем ширину экрана
         X_CENTER_SCREEN = SCREEN_WIDTH / 2; //получаем центр экрана по ширине
         Y_CENTER_SCREEN = SCREEN_HEIGHT / 2; //получаем центр экрана по высоте
-
-        initRotationManager = new InitRotationManager();
 
         texture = new Texture("BigPictures.png"); // загружаем все текстуры для отображения ценитральных элементов и лепестков
         texture2 = new Texture("BigPictures2.png");
@@ -194,7 +192,39 @@ public class GameManager {
 
     }
 
-    public static void renderGame(SpriteBatch batch){
+    public float getPositiveShiftXOrigin(){
+        return positiveShiftXOrigin;
+    }
+
+    public float getNegativeShiftXOrigin(){
+        return negativeShiftXOrigin;
+    }
+
+    public float getYShiftOrigin(){
+        return yShiftOrigin;
+    }
+
+    public float getNegativeShiftXOriginScale(){
+        return negativeShiftXOriginScale;
+    }
+
+    public float getPositiveShiftXOriginScale(){
+        return positiveShiftXOriginScale;
+    }
+
+    public Petal[] getPetals(){
+        return petals;
+    }
+
+    public CentralElement[] getCentralElements(){
+        return centralElements;
+    }
+
+    public float getSCREEN_HEIGHT(){
+        return SCREEN_HEIGHT;
+    }
+
+    public void renderGame(SpriteBatch batch){
 
         backgroundSprite.draw(batch);//отображаем спрайт заднего фона
 
@@ -211,7 +241,7 @@ public class GameManager {
 
     }
 
-    public static void dispose(){
+    public void dispose(){
         backgroundTexture.dispose();//уничтожаем текстуры
         texture2.dispose();
         texture.dispose();

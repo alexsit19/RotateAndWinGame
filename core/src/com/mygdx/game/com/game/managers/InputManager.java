@@ -1,19 +1,30 @@
 package com.mygdx.game.com.game.managers;
 
 import com.badlogic.gdx.Gdx;
-
-import static com.mygdx.game.com.game.managers.GameManager.centralElements;
-import static com.mygdx.game.com.game.managers.GameManager.initRotationManager;
+import com.mygdx.game.com.game.objects.CentralElement;
 
 
 public class InputManager {
-   static float xTouch, yTouch;
+   public float xTouch, yTouch;
+   public float screenHeight;
+   public GameManager gameManager;
+   public CentralElement[] centralElements;
+   public InitRotationManager initRotationManager;
+   public boolean isRotateNow;
 
-    public static void handleInput(){
 
-        if(Gdx.input.justTouched() && !InitRotationManager.isRotateNow){
+   public InputManager(GameManager gameManager, InitRotationManager initRotationManager){
+       this.initRotationManager = initRotationManager;
+       screenHeight = gameManager.getSCREEN_HEIGHT();
+       centralElements = gameManager.getCentralElements();
+      
+   }
+
+   public void handleInput(){
+
+        if(Gdx.input.justTouched() && !initRotationManager.getIsRotateNow()){
             xTouch = Gdx.input.getX();
-            yTouch = GameManager.SCREEN_HEIGHT - Gdx.input.getY();
+            yTouch = screenHeight - Gdx.input.getY();
             for(int i = 0; i < centralElements.length; i++){
 
                 initRotationManager.handleTouch(xTouch, yTouch, centralElements[i].cESprite, i);
